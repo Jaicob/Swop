@@ -17,6 +17,10 @@ class GameScene: SKScene {
   
   required init(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    setup()
+  }
+  
+  func setup() {
     anchorPoint = CGPoint(x: 0.5, y: 0.5)
     
     let layerPosition = CGPoint(
@@ -27,7 +31,6 @@ class GameScene: SKScene {
     
     tileLayer.position = layerPosition
     gameLayer.addChild(tileLayer)
-    // gameLayer.hidden = true
     
     objectLayer.position = layerPosition
     gameLayer.addChild(objectLayer)
@@ -36,7 +39,6 @@ class GameScene: SKScene {
   override func didMoveToView(view: SKView) {
     /* Setup your scene here */
     
-    // self.addChild(SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(200, 200)))
     
     
   }
@@ -45,6 +47,8 @@ class GameScene: SKScene {
   override func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
   }
+  
+  
   
   func drawTiles() {
     for tileArray in level.tiles {
@@ -55,14 +59,57 @@ class GameScene: SKScene {
   }
   
   func drawObjects() {
+    var i = 0
     for objectArray in level.objects {
       for object in objectArray {
         if object != nil {
+          //var label = SKLabelNode(text: "\(i)")
+          //  object?.sprite.addChild(label)
+          object?.sprite.name = object?.type.toRaw()
           objectLayer.addChild(object!.sprite)
-          println(object!.sprite.position)
+          println(object!.type.toRaw())
+          i++
         }
-        // objectLayer.addChild(SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(300,300)))
       }
+    }
+  }
+  
+  func moveObject(object : SwopObject) {
+    println("moving object with position: \(object.sprite.position)")
+    switch object.type {
+    case .right:
+      println("move to the right")
+      object.sprite.position = CGPointMake(object.sprite.position.x + 30, object.sprite.position.y)
+    case .left:
+      println("move to the left")
+      object.sprite.position = CGPointMake(object.sprite.position.x - 30, object.sprite.position.y)
+    default:
+      println("Dont move")
+    }
+    var winState = self.level.detectWinState()
+    println("\(winState)")
+ 
+  }
+  
+  func animateMoveForClearPath() {
+    
+  }
+  
+  func animateMoveForHop() {
+    
+  }
+  
+  func animateInvalideMove() {
+    
+  }
+  
+  override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    var touch = touches.anyObject() as UITouch
+    var selectedNode = self.nodeAtPoint(touch.locationInNode(self));
+    //if selectedNode.name == "SwopObject"{
+    var swopObject: SwopObject? = self.level.objectAtPosition(selectedNode.position).1
+    if let object = swopObject {
+      moveObject(object)
     }
   }
   

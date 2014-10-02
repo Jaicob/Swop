@@ -31,7 +31,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         var level = Level()
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
-           
+      //  var tapRecognizer = UITapGestureRecognizer(target: scene, action: Selector("moveObject"))
+      //  self.view.addGestureRecognizer(tapRecognizer)
             // Configure the view.
             let skView = self.view as SKView
  
@@ -44,12 +45,15 @@ class GameViewController: UIViewController {
             scene.level = level
             scene.drawTiles()
             scene.drawObjects()
+            
           
             skView.presentScene(scene)
         }
     }
   
+  func attemptMove() {
     
+  }
 
     override func shouldAutorotate() -> Bool {
         return true

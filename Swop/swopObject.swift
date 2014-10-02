@@ -13,19 +13,27 @@ let swopSize = CGSizeMake(28, 28)
 
 class SwopObject {
   
-  enum Direction: Int, Printable {
-    case Unknown = 0, up, down, left, right
-    var spriteName: String {
-      let spriteNames = [
-        "Up",
-        "Down",
-        "Left",
-        "Right"]
-        return spriteNames[toRaw() - 1]
-    }
-    var description: String {
-      return spriteName
-    }
+  enum Direction : String{
+    case Unknown = "unknown"
+    case up = "up"
+    case down = "down"
+    case left = "left"
+    case right = "right"
+    
+//    func asString() -> String {
+//      switch self {
+//      case .up:
+//        return "up"
+//      case .down:
+//        return "down"
+//      case .left:
+//        return "left"
+//      case .right:
+//        return "right"
+//      default:
+//        return "unkown"
+//      }
+  //}
   }
   
   var sprite: SKSpriteNode

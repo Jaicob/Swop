@@ -46,6 +46,12 @@ class Level {
     for var i = 0; i < 1; i++ {
       for var j = 0; j < 7; j++ {
         var obj: SwopObject? = SwopObject()
+        if j <= 2 {
+          obj?.type = SwopObject.Direction.right
+        }
+        else if j >= 4 {
+          obj?.type = SwopObject.Direction.left
+        }
         obj!.sprite.position =  CGPointMake(CGFloat(j*30),0.5)
         obj!.winPosition = CGPointMake(CGFloat(objects.count*30 - i*30), 0.5)
         if j == 3 {
@@ -70,24 +76,34 @@ class Level {
     return true
   }
   
-  func moveObject(object: SKSpriteNode) {
+  func movePosition(object: SwopObject) -> CGPoint?{
+    var newPosition: CGPoint? = nil
+    var adjacentPosition = CGPointMake(object.sprite.position.x + 30, object.sprite.position.y)
+    var hopPosition = CGPointMake(object.sprite.position.x + 60, object.sprite.position.y)
+    var adjacentObject: Bool  = objectAtPosition(adjacentPosition).0
+    var hopObject: Bool = objectAtPosition(hopPosition).0
     
+    if !adjacentObject {
+      newPosition = adjacentPosition
+    } else if(!hopObject) {
+      newPosition = hopPosition
+    }
+    return newPosition
   }
   
-  private func clearPath(object: SKSpriteNode) {
-    
-  }
+
   
-  private func obscuredPath(object: SKSpriteNode) {
-    
-  }
-  
-  private func objectAtPosition(position: CGPoint) -> Bool {
-    
-    
-    
-    
-    return true
+   func objectAtPosition(position: CGPoint) -> (Bool, SwopObject?) {
+    for objectArray in objects {
+      for object in objectArray {
+        if let currentObject = object {
+          if currentObject.sprite.position == position {
+            return (true, currentObject)
+          }
+        }
+      }
+    }
+    return (false,nil)
   }
   
 }

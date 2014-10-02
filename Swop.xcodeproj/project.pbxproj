@@ -15,6 +15,8 @@
 		CADF6BDA19DB93A000CD2DFE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CADF6BD919DB93A000CD2DFE /* Images.xcassets */; };
 		CADF6BDD19DB93A000CD2DFE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CADF6BDB19DB93A000CD2DFE /* LaunchScreen.xib */; };
 		CADF6BE919DB93A000CD2DFE /* SwopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF6BE819DB93A000CD2DFE /* SwopTests.swift */; };
+		CADF6BF319DB94D000CD2DFE /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF6BF219DB94D000CD2DFE /* Level.swift */; };
+		CADF6BF719DB973900CD2DFE /* swopObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADF6BF619DB973900CD2DFE /* swopObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		CADF6BE219DB93A000CD2DFE /* SwopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CADF6BE719DB93A000CD2DFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CADF6BE819DB93A000CD2DFE /* SwopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwopTests.swift; sourceTree = "<group>"; };
+		CADF6BF219DB94D000CD2DFE /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		CADF6BF619DB973900CD2DFE /* swopObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = swopObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				CADF6BD019DB93A000CD2DFE /* GameScene.sks */,
 				CADF6BD219DB93A000CD2DFE /* GameScene.swift */,
 				CADF6BD419DB93A000CD2DFE /* GameViewController.swift */,
+				CADF6BF819DB974000CD2DFE /* Model */,
 				CADF6BD619DB93A000CD2DFE /* Main.storyboard */,
 				CADF6BD919DB93A000CD2DFE /* Images.xcassets */,
 				CADF6BDB19DB93A000CD2DFE /* LaunchScreen.xib */,
@@ -116,6 +121,15 @@
 				CADF6BE719DB93A000CD2DFE /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CADF6BF819DB974000CD2DFE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CADF6BF619DB973900CD2DFE /* swopObject.swift */,
+				CADF6BF219DB94D000CD2DFE /* Level.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,7 +235,9 @@
 			files = (
 				CADF6BD319DB93A000CD2DFE /* GameScene.swift in Sources */,
 				CADF6BD519DB93A000CD2DFE /* GameViewController.swift in Sources */,
+				CADF6BF319DB94D000CD2DFE /* Level.swift in Sources */,
 				CADF6BCF19DB93A000CD2DFE /* AppDelegate.swift in Sources */,
+				CADF6BF719DB973900CD2DFE /* swopObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

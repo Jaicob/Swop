@@ -9,37 +9,61 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-        
-        self.addChild(myLabel)
-    }
+  
+  var level: Level!
+  var tileLayer = SKNode()
+  var objectLayer = SKNode()
+  let gameLayer = SKNode()
+  
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    anchorPoint = CGPoint(x: 0.5, y: 0.5)
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        /* Called when a touch begins */
-        
-        for touch: AnyObject in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
+    let layerPosition = CGPoint(
+      x: -30 * CGFloat(7) / 2,
+      y: -30 * CGFloat(1) / 2)
+    
+    addChild(gameLayer)
+    
+    tileLayer.position = layerPosition
+    gameLayer.addChild(tileLayer)
+    // gameLayer.hidden = true
+    
+    objectLayer.position = layerPosition
+    gameLayer.addChild(objectLayer)
+  }
+  
+  override func didMoveToView(view: SKView) {
+    /* Setup your scene here */
+    
+    // self.addChild(SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(200, 200)))
+    
+    
+  }
+  
+  
+  override func update(currentTime: CFTimeInterval) {
+    /* Called before each frame is rendered */
+  }
+  
+  func drawTiles() {
+    for tileArray in level.tiles {
+      for tile in tileArray {
+        tileLayer.addChild(tile)
+      }
+    }
+  }
+  
+  func drawObjects() {
+    for objectArray in level.objects {
+      for object in objectArray {
+        if object != nil {
+          objectLayer.addChild(object!.sprite)
+          println(object!.sprite.position)
         }
+        // objectLayer.addChild(SKSpriteNode(color: SKColor.redColor(), size: CGSizeMake(300,300)))
+      }
     }
-   
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    }
+  }
+  
 }

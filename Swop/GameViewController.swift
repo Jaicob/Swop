@@ -27,6 +27,12 @@ extension SKNode {
 
 class GameViewController: UIViewController {
 
+  var resetBlock: () -> () = {}
+
+  
+  
+  
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         var level = Level()
@@ -49,10 +55,16 @@ class GameViewController: UIViewController {
           
             skView.presentScene(scene)
         }
+      resetBlock = {
+        level.resetLevel()
+      }
     }
   
   func attemptMove() {
     
+  }
+  @IBAction func reset(sender: AnyObject) {
+    resetBlock()
   }
 
     override func shouldAutorotate() -> Bool {

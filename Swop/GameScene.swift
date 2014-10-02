@@ -75,19 +75,18 @@ class GameScene: SKScene {
   }
   
   func moveObject(object : SwopObject) {
-    println("moving object with position: \(object.sprite.position)")
+    println("moving object with position: \(object.sprite.position)\n Win Position: \(object.winPosition)")
     switch object.type {
     case .right:
       println("move to the right")
-      object.sprite.position = CGPointMake(object.sprite.position.x + 30, object.sprite.position.y)
+      object.sprite.position = level.movePosition(object)!
     case .left:
       println("move to the left")
-      object.sprite.position = CGPointMake(object.sprite.position.x - 30, object.sprite.position.y)
+      object.sprite.position = level.movePosition(object)!
     default:
       println("Dont move")
     }
-    var winState = self.level.detectWinState()
-    println("\(winState)")
+ 
  
   }
   
@@ -111,6 +110,9 @@ class GameScene: SKScene {
     if let object = swopObject {
       moveObject(object)
     }
+    var winState = self.level.detectWinState()
+    println("WIN STATE:\(winState)")
+
   }
   
 }

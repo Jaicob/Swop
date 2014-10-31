@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
@@ -25,10 +26,11 @@ extension SKNode {
     }
 }
 
+
 class GameViewController: UIViewController {
 
   var resetBlock: () -> () = {}
-
+  var scene: GameScene?
   
   
   
@@ -51,6 +53,7 @@ class GameViewController: UIViewController {
             scene.level = level
             scene.drawTiles()
             scene.drawObjects()
+            self.scene = scene
             
           
             skView.presentScene(scene)
@@ -65,6 +68,8 @@ class GameViewController: UIViewController {
   }
   @IBAction func reset(sender: AnyObject) {
     resetBlock()
+    self.scene!.drawObjects()
+  
   }
 
     override func shouldAutorotate() -> Bool {

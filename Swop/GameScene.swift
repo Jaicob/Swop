@@ -59,6 +59,7 @@ class GameScene: SKScene {
   }
   
   func drawObjects() {
+    objectLayer.removeAllChildren()
     var i = 0
     for objectArray in level.objects {
       for object in objectArray {

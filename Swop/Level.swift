@@ -11,31 +11,20 @@ import SpriteKit
 
 class Level {
   
+  //TODO: generate levels using JSON
   var objects = [[SwopObject?]]()
   var tiles = [[SKSpriteNode]]()
   var winState = [[SwopObject.Direction.self]]
   
   init() {
-    //could make array of optionals and fill values later
     initializeObjects()
     initializeTiles()
-    //    resetSwopObjects()
   }
   
   func resetLevel() {
-//    for var i = 0; i < 1; i++ {
-//      for var j = 0; j < 7; j++ {
-//        if (objects[j][i] != nil) {
-    
-          
-          objects.removeAll(keepCapacity: false);
-          initializeObjects()
-          
-//          
-//        }
-//      }
-      println(objects)
-//    }
+    objects.removeAll(keepCapacity: false);
+    initializeObjects()
+    println(objects)
   }
   
   func initializeTiles(){
@@ -46,8 +35,6 @@ class Level {
         tiles.append(([(node)]))
       }
     }
-    //println("Tiles: \(tiles)")
-    
   }
   
   func initializeObjects() {
@@ -75,8 +62,6 @@ class Level {
         objects.append(([(obj)]))
       }
     }
-    // println("Objects: \(objects)")
-    
   }
   
   func detectWinState() -> Bool {
@@ -90,39 +75,6 @@ class Level {
       }
     }
     return true
-  }
-  
-  //should be in scene
-  func movePosition(object: SwopObject) -> CGPoint?{
-    var newPosition: CGPoint? = object.sprite.position
-    var adjacentPosition: CGPoint?
-    var hopPosition: CGPoint?
-    
-    switch object.type {
-    case .left:
-      println("left pos")
-      adjacentPosition = CGPointMake(object.sprite.position.x - 30, object.sprite.position.y)
-      hopPosition = CGPointMake(object.sprite.position.x - 60, object.sprite.position.y)
-    case .right:
-      println("right pos")
-      adjacentPosition = CGPointMake(object.sprite.position.x + 30, object.sprite.position.y)
-      hopPosition = CGPointMake(object.sprite.position.x + 60, object.sprite.position.y)
-      
-    default:
-      println("no pos")
-    }
-    
-    var adjacentObject: Bool  = objectAtPosition(adjacentPosition!).0
-    var hopObject: Bool = objectAtPosition(hopPosition!).0
-    
-    if !adjacentObject {
-      newPosition = adjacentPosition
-    } else if(!hopObject) {
-      newPosition = hopPosition
-    }
-    moveIndex(object)
-    println(objects)
-    return newPosition
   }
   
   //Moving the location in the array
@@ -148,23 +100,14 @@ class Level {
       println("no pos")
       
     }
-    // println(objects[0])
-    //If there is an object in the adjust spot
-    //TODO: Fix bug where if attempt to move outside of tile range it throws an index out of bounds now, thank you data!
-    if !(objects[adjCol][row] != nil)  {
+  
+    //TODO: write method to check the bounds of hop and adj before going into method
+    if objects[adjCol][row] == nil && adjCol < objects.count  {
       swapIndexes(adjRow, col1: adjCol, row2: row, col2: col, object: object)
-      //      objects[adjCol][row] = object
-      //      objects[col][row] = nil
-      //      object.col = adjCol
-      //      object.row = adjRow
       return true;
-    } else if objects[hopCol][row] == nil {
-      swapIndexes(hopRow, col1: hopCol, row2: row, col2: col, object: object)
       
-      //      objects[hopCol][row] = object
-      //      objects[col][row] = nil
-      //      object.col = hopCol
-      //      object.row = hopRow
+    } else if objects[hopCol][row] == nil && hopCol < objects.count {
+      swapIndexes(hopRow, col1: hopCol, row2: row, col2: col, object: object)
       return true;
     }
     return false;
@@ -176,6 +119,7 @@ class Level {
     objects[col2][row2] = nil
     object.col = col1
     object.row = row1
+    println("\(self.objects) \n ")
   }
   
   func swapOptionals(row1: Int, col1: Int, row2: Int, col2: Int) {
@@ -198,8 +142,6 @@ class Level {
       objects[col2][row2] = temp
       objects[col1][row1] = nil
     } else {
-      
-      // temp = objects[col1][row1]
       objects[col1][row1]!.row = row1
       objects[col1][row1]!.col = col1
       objects[col2][row2]!.row = row1
@@ -212,17 +154,6 @@ class Level {
     
   }
   
-  func objectAtPosition(position: CGPoint) -> (Bool, SwopObject?) {
-    for objectArray in objects {
-      for object in objectArray {
-        if let currentObject = object {
-          if currentObject.sprite.position == position {
-            return (true, currentObject)
-          }
-        }
-      }
-    }
-    return (false,nil)
-  }
+
   
 }
